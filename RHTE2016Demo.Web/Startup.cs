@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -22,7 +23,8 @@ namespace RHTE2016Demo.Web
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            builder.AddJsonFile("/config/secret.json", true);
+            if (Directory.Exists("config"))
+                builder.AddJsonFile("/config/secret.json", true);
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -49,7 +51,8 @@ namespace RHTE2016Demo.Web
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                var secret = Configuration["SecretKey"];
+                await context.Response.WriteAsync($"Hello RHTE2016! The secret Configuration is: {secret}");
             });
         }
     }
