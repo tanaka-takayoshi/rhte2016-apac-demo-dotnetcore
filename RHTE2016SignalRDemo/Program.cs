@@ -24,6 +24,7 @@ namespace RHTE2016SignalRDemo
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
+                .UseUrls(url)
                 .Build();
 
             host.Run();
