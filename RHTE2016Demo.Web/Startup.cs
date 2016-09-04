@@ -23,7 +23,7 @@ namespace RHTE2016Demo.Web
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            if (Directory.Exists("config"))
+            if (Directory.Exists("/config"))
                 builder.AddJsonFile("/config/secret.json", true);
 
             builder.AddEnvironmentVariables();
